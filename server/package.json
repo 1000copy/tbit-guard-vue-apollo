@@ -6,7 +6,10 @@
   "dependencies": {
     "apollo-link-ws": "^1.0.20",
     "apollo-server-express": "^2.18.0",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "lowdb": "^1.0.0",
+    "mkdirp": "^1.0.4",
+    "shortid": "^2.2.15"
   },
   "devDependencies": {},
   "scripts": {

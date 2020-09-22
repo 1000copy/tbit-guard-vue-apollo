@@ -5,7 +5,42 @@
 	fe
 	server
 
+# 文件上传
 
+此处使用的服务器文件为indexUpload.js：
+
+	node indexUpload.js
+	
+文件上传使用graphql playground并不支持。可以使用allair graphql 工具来访问。查询输入：
+
+	mutation ($file:Upload!){
+	  singleUpload(file:$file){
+	    id
+	    path
+	    filename
+	    mimetype
+	    encoding
+	  }
+	}
+
+
+变量区(variables)内点击Add files ,添加一个文件，即可点击执行。此时应该看到返回为：
+
+	{
+	  "data": {
+	    "singleUpload": {
+	      "id": "rNmULh-m-",
+	      "path": "files/rNmULh-m--libEGL.dll",
+	      "filename": "libEGL.dll",
+	      "mimetype": "application/x-msdownload",
+	      "encoding": "7bit"
+	    }
+	  }
+	}
+
+且在服务器的./uploads内看到上传的文件。
+
+# 订阅
 ## 启动订阅服务器的方法
 
 	cd server
