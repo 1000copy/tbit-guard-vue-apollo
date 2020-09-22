@@ -1,0 +1,18 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "npm i express apollo-server-express apollo-link-ws  -S",
+  "main": "index.js",
+  "dependencies": {
+    "apollo-link-ws": "^1.0.20",
+    "apollo-server-express": "^2.18.0",
+    "express": "^4.17.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
