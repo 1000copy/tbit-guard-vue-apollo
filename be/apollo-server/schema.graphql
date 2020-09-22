@@ -1,6 +1,5 @@
 "Included scalars"
 scalar JSON
-scalar Upload
 
 "It will increment!"
 type Counter {

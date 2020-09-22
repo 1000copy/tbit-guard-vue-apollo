@@ -1,4 +1,5 @@
-import fs from 'fs'
-import path from 'path'
+var fs = require('fs')
+var  path = require('path')
 
-export default fs.readFileSync(path.resolve(__dirname, './schema.graphql'), { encoding: 'utf8' })
+
+module.exports = fs.readFileSync(path.resolve(__dirname, './schema.graphql'), { encoding: 'utf8' })

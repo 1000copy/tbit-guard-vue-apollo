@@ -13,15 +13,17 @@
     "apollo:start": "vue-cli-service apollo:start"
   },
   "dependencies": {
+    "apollo-boost": "^0.4.9",
     "apollo-link-ws": "^1.0.20",
     "apollo-utilities": "^1.3.4",
     "core-js": "^3.6.5",
+    "graphql": "^15.3.0",
     "graphql-type-json": "^0.2.1",
     "lowdb": "^1.0.0",
     "mkdirp": "^0.5.1",
     "shortid": "^2.2.8",
     "vue": "^2.6.11",
-    "vue-apollo": "^3.0.0-beta.11"
+    "vue-apollo": "^3.0.4"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
@@ -47,9 +49,7 @@
     "parserOptions": {
       "parser": "babel-eslint"
     },
-    "rules": {
-     
-    },
+    "rules": {},
     "plugins": [
       "graphql"
     ]
