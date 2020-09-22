@@ -76,7 +76,7 @@
       </template>
     </ApolloMutation>
 
-    <div class="images">
+    <!-- <div class="images">
       <div
         v-for="file of files"
         :key="file.id"
@@ -95,14 +95,14 @@
         required
         @change="onUploadImage"
       >
-    </div>
+    </div> -->
   </div>
 </template>
 
 <script>
 import FILES from '../graphql/Files.gql'
 import UPLOAD_FILE from '../graphql/UploadFile.gql'
-
+import gql from 'graphql-tag'
 export default {
   data () {
     return {
@@ -112,7 +112,34 @@ export default {
   },
 
   apollo: {
-    files: FILES,
+    messages: {
+      query: gql`query messages {
+            messages {
+              text
+            }
+          }
+        `,
+      subscribeToMore: {
+        document: gql`subscription messageAdded {
+            messageAdded {
+              text
+            }
+          }
+  `,
+        // 传递给订阅的变量
+        // 由于我们使用了函数，因此它们是响应式的
+        variables () {
+          return {
+            // param: this.param,
+          }
+        },
+        // 变更之前的结果
+        updateQuery: (previousResult, { subscriptionData }) => {
+          // 在这里用之前的结果和新数据组合成新的结果
+          console.log(subscriptionData)
+        },
+      }
+    }
   },
 
   computed: {

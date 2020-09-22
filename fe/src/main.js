@@ -18,8 +18,8 @@ const httpLink = new HttpLink({
 
 // 创建订阅的 websocket 连接
 const wsLink = new WebSocketLink({
-  uri: 'ws://localhost:4000/subscriptions',
-  // uri: 'ws://localhost:4000/graphql',
+  // uri: 'ws://localhost:4000/subscriptions',
+  uri: 'ws://localhost:4000/graphql',
   options: {
     reconnect: true,
   },

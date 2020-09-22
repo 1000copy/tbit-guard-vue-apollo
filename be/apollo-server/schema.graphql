@@ -37,6 +37,7 @@ type Query {
   "List of messages sent by users"
   messages: [Message]
   uploads: [File]
+  files: [File]
 
 }
 
