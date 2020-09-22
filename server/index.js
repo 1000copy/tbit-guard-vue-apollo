@@ -5,6 +5,11 @@ const { ApolloServer,PubSub } = require("apollo-server-express");
 const pubsub = new PubSub();
 const channelName = 'message'
 var resolvers = {
+  Query:{
+    messages: (root, { input }) => {
+      return ['1','2']
+    },
+  },
   Mutation: {
     addMessage: (root, { input }) => {
       pubsub.publish(channelName, { messageAdded: input })
@@ -20,7 +25,7 @@ var resolvers = {
 const server = new ApolloServer({
   typeDefs: `
     type Query{
-      _empty:String 
+      messages:[String] 
     }
     type Mutation {
       addMessage (input: String!): String!  

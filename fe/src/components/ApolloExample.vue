@@ -1,36 +1,5 @@
 <template>
   <div class="apollo-example">
-    <!-- Cute tiny form -->
-    <div class="form">
-      <label for="field-name" class="label">Name</label>
-      <input
-        v-model="name"
-        placeholder="Type a name"
-        class="input"
-        id="field-name"
-      >
-    </div>
-
-    <!-- Apollo watched Graphql query -->
-    <ApolloQuery
-      :query="require('../graphql/HelloWorld.gql')"
-      :variables="{ name }"
-    >
-      <template slot-scope="{ result: { loading, error, data } }">
-        <!-- Loading -->
-        <div v-if="loading" class="loading apollo">Loading...</div>
-
-        <!-- Error -->
-        <div v-else-if="error" class="error apollo">An error occured</div>
-
-        <!-- Result -->
-        <div v-else-if="data" class="result apollo">{{ data.hello }}</div>
-
-        <!-- No result -->
-        <div v-else class="no-result apollo">No result :(</div>
-      </template>
-    </ApolloQuery>
-
     <!-- Tchat example -->
     <ApolloQuery
       :query="require('../graphql/Messages.gql')"
@@ -39,15 +8,14 @@
         :document="require('../graphql/MessageAdded.gql')"
         :update-query="onMessageAdded"
       />
-
       <div slot-scope="{ result: { data } }">
         <template v-if="data">
           <div
             v-for="message of data.messages"
-            :key="message.id"
+            :key="message"
             class="message"
           >
-            {{ message.text }}
+            {{ message }}
           </div>
         </template>
       </div>
@@ -56,9 +24,7 @@
     <ApolloMutation
       :mutation="require('../graphql/AddMessage.gql')"
       :variables="{
-        input: {
-          text: newMessage,
-        },
+        input: newMessage,
       }"
       class="form"
       @done="newMessage = ''"
@@ -74,35 +40,14 @@
           >
         </form>
       </template>
-    </ApolloMutation>
-
-    <!-- <div class="images">
-      <div
-        v-for="file of files"
-        :key="file.id"
-        class="image-item"
-      >
-        <img :src="`${$filesRoot}/${file.path}`" class="image"/>
-      </div>
-    </div>
-
-    <div class="image-input">
-      <label for="field-image">Image</label>
-      <input
-        id="field-image"
-        type="file"
-        accept="image/*"
-        required
-        @change="onUploadImage"
-      >
-    </div> -->
+    </ApolloMutation>   
   </div>
 </template>
 
 <script>
 import FILES from '../graphql/Files.gql'
 import UPLOAD_FILE from '../graphql/UploadFile.gql'
-import gql from 'graphql-tag'
+// import gql from 'graphql-tag'
 export default {
   data () {
     return {
@@ -112,34 +57,7 @@ export default {
   },
 
   apollo: {
-    messages: {
-      query: gql`query messages {
-            messages {
-              text
-            }
-          }
-        `,
-      subscribeToMore: {
-        document: gql`subscription messageAdded {
-            messageAdded {
-              text
-            }
-          }
-  `,
-        // 传递给订阅的变量
-        // 由于我们使用了函数，因此它们是响应式的
-        variables () {
-          return {
-            // param: this.param,
-          }
-        },
-        // 变更之前的结果
-        updateQuery: (previousResult, { subscriptionData }) => {
-          // 在这里用之前的结果和新数据组合成新的结果
-          console.log(subscriptionData)
-        },
-      }
-    }
+   
   },
 
   computed: {

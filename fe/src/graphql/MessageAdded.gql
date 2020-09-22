@@ -1,7 +1,3 @@
-#import "./MessageFragment.gql"
-
 subscription messageAdded {
-  messageAdded {
-    ...Message
-  }
+  messageAdded 
 }
