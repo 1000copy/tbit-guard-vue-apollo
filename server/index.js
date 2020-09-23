@@ -7,7 +7,7 @@ const channelName = 'message'
 var resolvers = {
   Query:{
     messages: (root, { input }) => {
-      return ['1','2']
+      return [{messages:'1'},{messages:'2'}]
     },
   },
   Mutation: {

@@ -1,26 +1,8 @@
 <template>
   <div class="apollo-example">
-    <!-- Tchat example -->
-    <ApolloQuery
-      :query="require('../graphql/Messages.gql')"
-    >
-      <ApolloSubscribeToMore
-        :document="require('../graphql/MessageAdded.gql')"
-        :update-query="onMessageAdded"
-      />
-      <div slot-scope="{ result: { data } }">
-        <template v-if="data">
-          <div
-            v-for="message of data.messages"
-            :key="message"
-            class="message"
-          >
+    <div v-for="message of messages" :key="message">
             {{ message }}
-          </div>
-        </template>
-      </div>
-    </ApolloQuery>
-   
+    </div>
     <form v-on:submit.prevent>
           <label for="field-message">Message</label>
           <input
@@ -33,7 +15,6 @@
         </form>
   </div>
 </template>
-
 <script>
 import gql from 'graphql-tag'
 export default {
@@ -43,11 +24,29 @@ export default {
     }
   },
   apollo: {
-    hello: gql`query {
-      hello
-    }`,
+    messages: {
+      query: gql`query messages {messages}`,
+      subscribeToMore: {
+        document: gql`subscription messageAdded {
+            messageAdded 
+        }`,
+        variables () {
+          return {}
+        },
+        // 变更之前的结果
+        updateQuery: (previousResult, { subscriptionData }) => {
+          // 在这里用之前的结果和新数据组合成新的结果
+          console.log(previousResult.messages, subscriptionData )
+          var r = [
+            ...previousResult.messages,
+            subscriptionData.data.messageAdded
+            ] 
+          
+          return  {messages:r}
+        },
+      }
+    }
   },
-
   computed: {
     formValid () {
       return this.newMessage
@@ -56,18 +55,16 @@ export default {
 
   methods: {
      async newMessage1() {
-      const result = await this.$apollo.mutate({
-        // 查询语句
+      // const result = 
+      await this.$apollo.mutate({
         mutation: gql`mutation addMessage ($input: String!) {
             addMessage (input: $input) 
           }
-        `,
-        // 参数
+        `,        
         variables: {
           input: this.newMessage,
         },
-      })
-      console.log('result:',result)
+      })      
     },
     onMessageAdded (previousResult, { subscriptionData }) {
       return {
