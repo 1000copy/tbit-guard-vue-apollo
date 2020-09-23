@@ -1,8 +1,7 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <!-- <ApolloExample msg="Welcome to Your Vue.js App"/> -->
-    <ApolloPure msg="Welcome to Your Vue.js App"/>
+  <div id="app">    
+    <h1>Welcome to your vue apollo Subscription App</h1>
+    <ApolloPure/>
   </div>
 </template>
 
